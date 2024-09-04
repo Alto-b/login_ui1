@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:login_ui1/signup.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -18,117 +20,98 @@ class _LoginViewState extends State<LoginView> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.cyan,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.cyan,
-      //   centerTitle: true,
-      //   title: const Text("Login"),
-      // ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center, // Center the content vertically
-          children: [
-            Spacer(),
-
-            Card(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 20.0), // Card margin
-              elevation: 5.0, // Shadow for the card
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(15.0), // Rounded corners for the card
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0), // Padding inside the card
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment
-                      .stretch, // Stretch content to fill width
-                  children: [
-                    Text("Login"),
-                    SizedBox(
-                      height: 50,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 80.0), // Add padding to avoid overlap
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: screenHeight / 12),
+                  // Spacer(),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    elevation: 25.0,
+                    shadowColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                    // Email input field with padding
-                    TextField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(10), // Rounded corners
-                        ),
-                        prefixIcon: const Icon(Icons.email),
-                        filled: true,
-                        fillColor:
-                            Colors.white, // Background color for the text field
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Lottie.asset('assets/login1.json',
+                              height: screenHeight / 3),
+                          const SizedBox(height: 0),
+                          TextField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              prefixIcon: const Icon(Icons.email),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          TextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              prefixIcon: const Icon(Icons.lock),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 24.0),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Handle login logic here
+                              print("Login button pressed");
+                            },
+                            child: const Text('Login'),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
+                              backgroundColor: Colors.blueAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                // Handle forgot password logic
+                                print("Forgot Password tapped");
+                              },
+                              child: const Text('Forgot Password?'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                        height:
-                            16.0), // Space between email and password fields
-
-                    // Password input field with padding
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(10), // Rounded corners
-                        ),
-                        prefixIcon: const Icon(Icons.lock),
-                        filled: true,
-                        fillColor:
-                            Colors.white, // Background color for the text field
-                      ),
-                    ),
-                    const SizedBox(
-                        height:
-                            24.0), // Space between password field and button
-
-                    // Login button
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle login logic here
-                        print("Login button pressed");
-                      },
-                      child: const Text('Login'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 15),
-                        backgroundColor: Colors.blueAccent, // Button color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              10), // Rounded button corners
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                        height:
-                            16.0), // Space between button and additional options
-
-                    // Forgot password option
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // Handle forgot password logic
-                          print("Forgot Password tapped");
-                        },
-                        child: const Text('Forgot Password?'),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Spacer(),
-            // const SizedBox(
-            //     height: 20.0), // Space between card and SignUp container
-            // SignUp container at the bottom
-            GestureDetector(
+          ),
+          // SignUp container at the bottom
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -137,10 +120,9 @@ class _LoginViewState extends State<LoginView> {
                         SignupView(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      // Define the bottom-to-top transition
-                      const begin = Offset(0.0, 1.0); // Start from the bottom
-                      const end = Offset.zero; // End at the top
-                      const curve = Curves.easeInOut; // Animation curve
+                      const begin = Offset(0.0, 1.0);
+                      const end = Offset.zero;
+                      const curve = Curves.easeInOut;
 
                       var tween = Tween(begin: begin, end: end)
                           .chain(CurveTween(curve: curve));
@@ -154,22 +136,33 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 );
               },
-              child: Container(
-                height: screenHeight / 14,
-                width: double.infinity,
-                color: Colors.red,
-                child: const Center(
-                  child: Text(
-                    "SignUp",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16), // Text color for contrast
+              child: IntrinsicHeight(
+                child: Container(
+                  // height: screenHeight / 12,
+                  width: double.infinity,
+                  color: Colors.pink,
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Gap(10),
+                        Icon(
+                          Icons.keyboard_arrow_up_outlined,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "SignUp",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        Gap(10),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
